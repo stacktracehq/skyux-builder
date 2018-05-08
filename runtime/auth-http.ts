@@ -1,20 +1,20 @@
-import {
-  Injectable
-} from '@angular/core';
+// import {
+//   Injectable
+// } from '@angular/core';
 
-import {
-  ConnectionBackend,
-  Headers,
-  Http,
-  Request,
-  RequestOptions,
-  RequestOptionsArgs,
-  Response
-} from '@angular/http';
+// import {
+//   ConnectionBackend,
+//   Headers,
+//   Http,
+//   Request,
+//   RequestOptions,
+//   RequestOptionsArgs,
+//   Response
+// } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
 
 import { BBAuthGetTokenArgs } from '@blackbaud/auth-client';
 
@@ -24,18 +24,18 @@ import { SkyAuthTokenProvider } from '@blackbaud/skyux-builder/runtime/auth-toke
 /**
  * Makes authenticated web requests to Blackbaud web services using a BBID token.
  */
-@Injectable()
-export class SkyAuthHttp extends Http {
+// @Injectable()
+export class SkyAuthHttp /* extends Http */ {
 
   private permissionScope: string;
 
   constructor(
-    private backend: ConnectionBackend,
-    private defaultOptions: RequestOptions,
+    private backend: any, // ConnectionBackend
+    private defaultOptions: any, // RequestOptions
     private authTokenProvider: SkyAuthTokenProvider,
     private skyAppConfig: SkyAppConfig
   ) {
-    super(backend, defaultOptions);
+    // super(backend, defaultOptions);
   }
 
   /**
@@ -69,7 +69,7 @@ export class SkyAuthHttp extends Http {
    */
   public request(
     url: string | Request,
-    options?: RequestOptionsArgs
+    options?: any // RequestOptionsArgs
   ): Observable<Response> {
     let tokenArgs: BBAuthGetTokenArgs;
 
@@ -83,29 +83,29 @@ export class SkyAuthHttp extends Http {
     }
 
     return Observable.fromPromise(this.authTokenProvider.getToken(tokenArgs))
-      .flatMap((token: string) => {
-        let authOptions: Request | RequestOptionsArgs;
+      .map((token: string) => {
+        // let authOptions: Request | RequestOptionsArgs;
+        //
+        // if (url instanceof Request) {
+        //   // If the user calls get(), post(), or any of the other convenience
+        //   // methods supplied by the Http base class, Angular will have converted
+        //   // the url parameter to a Request object and the options parameter will
+        //   // be undefined.
+        //   authOptions = url;
+        //   url.url = this.skyAppConfig.runtime.params.getUrl(url.url);
+        // } else {
+        //   // The url parameter can be a string in cases where reuqest() is called
+        //   // directly by the consumer.  Handle that case by adding the header to the
+        //   // options parameter.
+        //   authOptions = options || new RequestOptions();
+        //   url = this.skyAppConfig.runtime.params.getUrl(url);
+        // }
+        //
+        // authOptions.headers = authOptions.headers || new Headers();
+        //
+        // authOptions.headers.set('Authorization', 'Bearer ' + token);
 
-        if (url instanceof Request) {
-          // If the user calls get(), post(), or any of the other convenience
-          // methods supplied by the Http base class, Angular will have converted
-          // the url parameter to a Request object and the options parameter will
-          // be undefined.
-          authOptions = url;
-          url.url = this.skyAppConfig.runtime.params.getUrl(url.url);
-        } else {
-          // The url parameter can be a string in cases where reuqest() is called
-          // directly by the consumer.  Handle that case by adding the header to the
-          // options parameter.
-          authOptions = options || new RequestOptions();
-          url = this.skyAppConfig.runtime.params.getUrl(url);
-        }
-
-        authOptions.headers = authOptions.headers || new Headers();
-
-        authOptions.headers.set('Authorization', 'Bearer ' + token);
-
-        return super.request(url, authOptions);
+        return {}; // super.request(url, authOptions);
       });
   }
 

@@ -1,4 +1,4 @@
-import { URLSearchParams } from '@angular/http';
+// import { URLSearchParams } from '@angular/http';
 import { SkyuxConfigParams } from './config-params';
 
 /**
@@ -28,7 +28,7 @@ export class SkyAppRuntimeConfigParams {
     url: string,
     configParams: SkyuxConfigParams
   ) {
-    let allowed: string[];
+    // let allowed: string[];
 
     // The default params value in Builder's skyuxconfig.json has been changed
     // from an array to an object to support more metadata about each parameter,
@@ -36,52 +36,52 @@ export class SkyAppRuntimeConfigParams {
     // like required. Check for an array first to maintain backwards compatibility
     // with the previous default value and any consumers who may be overriding the
     // value until we release builder 2.0.
-    if (Array.isArray(configParams)) {
-      allowed = configParams;
-    } else {
-      allowed = [];
-
-      for (const paramName of Object.keys(configParams)) {
-        const configParam = configParams[paramName];
-
-        // The config param could be present but be set to false/undefined indicating
-        // an override of the default parameter.
-        if (configParam) {
-          allowed.push(paramName);
-
-          // A boolean value may be present to simply indicate that a parameter is allowed.
-          // If the type is object, look for additional config properties.
-          if (typeof configParam === 'object') {
-            const paramValue = configParam.value;
-
-            if (configParam.required) {
-              this.requiredParams.push(paramName);
-            }
-
-            if (paramValue) {
-              this.params[paramName] = paramValue;
-            }
-          }
-        }
-      }
-    }
-
-    const urlSearchParams = getUrlSearchParams(url);
+    // if (Array.isArray(configParams)) {
+    //   allowed = configParams;
+    // } else {
+    //   allowed = [];
+    //
+    //   for (const paramName of Object.keys(configParams)) {
+    //     const configParam = configParams[paramName];
+    //
+    //     // The config param could be present but be set to false/undefined indicating
+    //     // an override of the default parameter.
+    //     if (configParam) {
+    //       allowed.push(paramName);
+    //
+    //       // A boolean value may be present to simply indicate that a parameter is allowed.
+    //       // If the type is object, look for additional config properties.
+    //       if (typeof configParam === 'object') {
+    //         const paramValue = configParam.value;
+    //
+    //         if (configParam.required) {
+    //           this.requiredParams.push(paramName);
+    //         }
+    //
+    //         if (paramValue) {
+    //           this.params[paramName] = paramValue;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    //
+    // const urlSearchParams = getUrlSearchParams(url);
 
     // Get uppercase keys.
-    const allowedKeysUC = allowed.map(key => key.toUpperCase());
-    const urlSearchParamKeys = Array.from(urlSearchParams.paramsMap.keys());
+    // const allowedKeysUC = allowed.map(key => key.toUpperCase());
+    // const urlSearchParamKeys = Array.from(urlSearchParams.paramsMap.keys());
 
     // Filter to allowed params and override default values.
-    urlSearchParamKeys.forEach(givenKey => {
-      const givenKeyUC = givenKey.toUpperCase();
-      allowedKeysUC.forEach((allowedKeyUC, index) => {
-        if (givenKeyUC === allowedKeyUC) {
-          this.params[allowed[index]] = urlSearchParams.get(givenKey);
-          this.encodedParams.push(givenKey);
-        }
-      });
-    });
+    // urlSearchParamKeys.forEach(givenKey => {
+    //   const givenKeyUC = givenKey.toUpperCase();
+    //   allowedKeysUC.forEach((allowedKeyUC, index) => {
+    //     if (givenKeyUC === allowedKeyUC) {
+    //       this.params[allowed[index]] = urlSearchParams.get(givenKey);
+    //       this.encodedParams.push(givenKey);
+    //     }
+    //   });
+    // });
   }
 
   /**

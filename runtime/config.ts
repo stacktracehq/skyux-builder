@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
 import { SkyAppRuntimeConfigParams } from './params';
 import { SkyuxConfigParams } from './config-params';
 
@@ -79,7 +79,7 @@ export interface SkyuxConfig {
   skyuxModules?: string[];
 }
 
-@Injectable()
+// @Injectable()
 export class SkyAppConfig {
 
   // Any properties dynamically added via code

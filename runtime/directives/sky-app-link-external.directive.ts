@@ -1,22 +1,22 @@
-import { Directive, Input } from '@angular/core';
-import { PathLocationStrategy, PlatformLocation } from '@angular/common';
+// import { Directive, Input } from '@angular/core';
+// import { PathLocationStrategy, PlatformLocation } from '@angular/common';
 import { SkyAppWindowRef } from '../window-ref';
 import { SkyAppConfig } from '../config';
-import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
+// import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 
-@Directive({
-  selector: '[skyAppLinkExternal]'
-})
-export class SkyAppLinkExternalDirective extends RouterLinkWithHref {
+// @Directive({
+//   selector: '[skyAppLinkExternal]'
+// })
+export class SkyAppLinkExternalDirective /*extends RouterLinkWithHref*/ {
 
   private _queryParams: { [k: string]: any };
 
-  @Input()
+  // @Input()
   set skyAppLinkExternal(commands: any[] | string) {
-    this.routerLink = commands;
+    // this.routerLink = commands;
   }
 
-  @Input()
+  // @Input()
   set queryParams(params: { [k: string]: any }) {
     this._queryParams = Object.assign(params, this.skyAppConfig.runtime.params.getAll());
   }
@@ -29,17 +29,17 @@ export class SkyAppLinkExternalDirective extends RouterLinkWithHref {
   }
 
   constructor(
-    router: Router,
-    route: ActivatedRoute,
-    platformLocation: PlatformLocation,
+    router: any, // Router,
+    route: any, // ActivatedRoute,
+    platformLocation: any, // PlatformLocation,
     private skyAppConfig: SkyAppConfig,
     private window: SkyAppWindowRef
   ) {
-    super(router, route, new PathLocationStrategy(platformLocation, skyAppConfig.skyux.host.url));
-    if (this.window.nativeWindow.window.name && this.window.nativeWindow.window.name !== '') {
-      this.target = this.window.nativeWindow.window.name;
-    } else {
-      this.target = '_top';
-    }
+    // super(router, route, new PathLocationStrategy(platformLocation, skyAppConfig.skyux.host.url));
+    // if (this.window.nativeWindow.window.name && this.window.nativeWindow.window.name !== '') {
+    //   this.target = this.window.nativeWindow.window.name;
+    // } else {
+    //   this.target = '_top';
+    // }
   }
 }

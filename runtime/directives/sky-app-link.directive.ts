@@ -1,20 +1,20 @@
-import { Directive, Input } from '@angular/core';
-import { LocationStrategy } from '@angular/common';
-import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
+// import { Directive, Input } from '@angular/core';
+// import { LocationStrategy } from '@angular/common';
+// import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { SkyAppConfig } from '../config';
 
-@Directive({
-  selector: '[skyAppLink]'
-})
-export class SkyAppLinkDirective extends RouterLinkWithHref {
+// @Directive({
+//   selector: '[skyAppLink]'
+// })
+export class SkyAppLinkDirective /*extends RouterLinkWithHref*/ {
   private _queryParams: { [k: string]: any };
 
-  @Input()
+  // @Input()
   set skyAppLink(commands: any[] | string) {
-    this.routerLink = commands;
+    // this.routerLink = commands;
   }
 
-  @Input()
+  // @Input()
   set queryParams(params: { [k: string]: any }) {
     this._queryParams = Object.assign(params, this.skyAppConfig.runtime.params.getAll());
   }
@@ -27,11 +27,11 @@ export class SkyAppLinkDirective extends RouterLinkWithHref {
   }
 
   constructor(
-    router: Router,
-    route: ActivatedRoute,
-    locationStrategy: LocationStrategy,
+    router: any, // Router,
+    route: any, // ActivatedRoute,
+    locationStrategy: any, // LocationStrategy,
     private skyAppConfig: SkyAppConfig
   ) {
-    super(router, route, locationStrategy);
+    // super(router, route, locationStrategy);
   }
 }
